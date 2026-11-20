@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>To My Favourite Human</title>
+  <meta name="description" content="A little something for someone special.">
+  <meta name="theme-color" content="#FFF9F2">
+  <link rel="icon" href="assets/illustrations/hibiscus.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Hanken+Grotesk:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/pages.css">
+</head>
+<body>
+  <main class="page gift-page" data-gift-page>
+    <div class="gift-stage" data-gift>
+      <div class="gift-art" aria-hidden="true">
+        <svg viewBox="0 0 240 260" focusable="false">
+          <ellipse class="gift-shadow" cx="120" cy="240" rx="92" ry="8"/>
+          <g stroke="#541B27" stroke-width="1.5" stroke-linejoin="round">
+            <rect x="40" y="112" width="160" height="124" rx="3" fill="#F3EAE0"/>
+          </g>
+          <rect x="108" y="112" width="24" height="124" fill="#A52B3C"/>
+          <rect class="gift-mouth" x="41" y="112" width="158" height="7" fill="#541B27"/>
+          <g class="gift-lid">
+            <rect x="30" y="86" width="180" height="30" rx="3" fill="#FFF9F2" stroke="#541B27" stroke-width="1.5" stroke-linejoin="round"/>
+            <rect x="108" y="86" width="24" height="30" fill="#A52B3C"/>
+            <path d="M120 86C96 54 70 60 80 80c6 10 28 8 40 6zM120 86c24-32 50-26 40-6-6 10-28 8-40 6z" fill="#A52B3C"/>
+            <circle cx="120" cy="84" r="7" fill="#C34450"/>
+          </g>
+        </svg>
+      </div>
+      <img class="gift-flower" src="assets/illustrations/hibiscus.svg" alt="" width="200" height="200">
+    </div>
+
+    <div class="gift-copy">
+      <h1>A little something for someone special.</h1>
+      <div class="gift-actions">
+        <button type="button" class="btn" data-open>Open your gift</button>
+      </div>
+    </div>
+    <p class="visually-hidden" role="status" aria-live="polite" data-status></p>
+  </main>
+
+  <script src="js/main.js"></script>
+  <script src="js/gift.js"></script>
+</body>
+</html>

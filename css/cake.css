@@ -1,0 +1,66 @@
+/* Page 07: the birthday cake. Uses tokens from style.css. */
+[hidden] { display: none !important; }
+
+.cake-wrap { width: 100%; max-width: 36rem; display: flex; flex-direction: column; align-items: center; gap: var(--space-l); text-align: center; }
+.cake-head h1 { font-size: clamp(1.75rem, 1.3rem + 2.6vw, 2.75rem); margin-top: var(--space-s); text-wrap: balance; }
+.cake-instruction { font-family: var(--font-serif); font-style: italic; font-size: var(--step-1); line-height: 1.45; color: var(--cherry); margin: var(--space-m) auto 0; max-width: 26rem; }
+
+.cake-stage { position: relative; width: 100%; display: flex; flex-direction: column; align-items: center; gap: var(--space-m); }
+.cake-glow { position: absolute; top: -2rem; left: 50%; width: min(26rem, 120%); aspect-ratio: 1; transform: translateX(-50%); background: radial-gradient(circle, rgba(246, 181, 106, 0.32), rgba(246, 181, 106, 0) 65%); opacity: 0; transition: opacity 1.4s var(--ease); pointer-events: none; }
+.cake-stage[data-state="counting"] .cake-glow,
+.cake-stage[data-state="ready"] .cake-glow { opacity: 1; }
+.cake-stage[data-state="intro"] .cake-glow { opacity: 0.55; }
+
+.cake-svg { position: relative; width: min(100%, 22rem); height: auto; overflow: visible; }
+
+/* Flames */
+.flame { transform-box: fill-box; transform-origin: 50% 100%; animation: flicker 1.7s ease-in-out infinite; transition: opacity 0.45s ease, transform 0.45s ease; }
+.candle[data-i="1"] .flame { animation-duration: 1.4s; animation-delay: -0.5s; }
+.candle[data-i="2"] .flame { animation-duration: 1.95s; animation-delay: -1s; }
+.flame-halo { transition: opacity 0.5s ease; animation: halo 2.4s ease-in-out infinite; }
+@keyframes flicker {
+  0%, 100% { transform: scale(1, 1) rotate(0deg); }
+  25% { transform: scale(0.95, 1.06) rotate(-2.5deg); }
+  55% { transform: scale(1.04, 0.96) rotate(2deg); }
+  80% { transform: scale(0.97, 1.04) rotate(-1deg); }
+}
+@keyframes halo { 0%, 100% { opacity: 0.85; } 50% { opacity: 1; } }
+
+/* Candles out */
+.cake-stage.is-out .flame { animation: none; opacity: 0; transform: scale(0.2, 0.1); }
+.cake-stage.is-out .flame-halo { animation: none; opacity: 0; }
+.cake-stage.is-out .cake-glow { opacity: 0; }
+.cake-stage.is-out .candle[data-i="1"] .flame { transition-delay: 0.1s; }
+.cake-stage.is-out .candle[data-i="2"] .flame { transition-delay: 0.2s; }
+
+.smoke { opacity: 0; }
+.smoke path { stroke-dasharray: 80; stroke-dashoffset: 80; }
+.cake-stage.is-out .smoke { animation: smoke-rise 2.6s ease-out forwards; }
+.cake-stage.is-out .smoke path { animation: smoke-draw 1.4s ease-out forwards; }
+.cake-stage.is-out .candle[data-i="1"] .smoke, .cake-stage.is-out .candle[data-i="1"] .smoke path { animation-delay: 0.1s; }
+.cake-stage.is-out .candle[data-i="2"] .smoke, .cake-stage.is-out .candle[data-i="2"] .smoke path { animation-delay: 0.2s; }
+@keyframes smoke-rise { 0% { opacity: 0; transform: translate(0, 0); } 15% { opacity: 0.55; } 100% { opacity: 0; transform: translate(4px, -26px); } }
+@keyframes smoke-draw { to { stroke-dashoffset: 0; } }
+
+/* Panel */
+.cake-panel { width: 100%; min-height: 12.5rem; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; }
+.cake-step { width: 100%; display: flex; flex-direction: column; align-items: center; gap: var(--space-s); animation: fade 0.8s ease both; }
+.cake-panel .btn { max-width: 100%; min-height: 3rem; text-align: center; line-height: 1.35; padding: 0.9rem 1.75rem; text-decoration: none; }
+.btn-ghost { background: transparent; color: var(--burgundy); border-color: rgba(84, 27, 39, 0.45); }
+.btn-ghost:hover:not(:disabled) { background: var(--cream); color: var(--burgundy); border-color: var(--burgundy); }
+
+.link-btn { font: inherit; font-size: 0.9375rem; color: var(--burgundy); background: none; border: 0; padding: 0.5rem 1rem; min-height: 2.75rem; cursor: pointer; text-decoration: underline; text-underline-offset: 4px; opacity: 0.8; }
+.link-btn:hover { opacity: 1; color: var(--cherry); }
+
+.count-label { font-family: var(--font-serif); font-style: italic; font-size: var(--step-1); color: var(--cherry); }
+.count-number { font-family: var(--font-serif); font-weight: 500; font-size: clamp(4.5rem, 3.5rem + 6vw, 7rem); line-height: 1; min-height: 1em; font-variant-numeric: tabular-nums; }
+.ready-line { font-family: var(--font-serif); font-size: var(--step-1); line-height: 1.4; margin-bottom: var(--space-s); }
+
+.mic-block { margin-top: var(--space-m); display: flex; flex-direction: column; align-items: center; gap: 0.25rem; max-width: 28rem; }
+.mic-status { min-height: 1.5em; font-size: 0.9375rem; color: var(--cherry); margin-top: var(--space-s); }
+.mic-note { font-size: 0.8125rem; line-height: 1.6; opacity: 0.72; margin-top: var(--space-s); }
+
+.done-line { font-family: var(--font-serif); font-style: italic; font-size: var(--step-2); line-height: 1.25; color: var(--cherry); margin-bottom: var(--space-m); text-wrap: balance; }
+.done-line:focus { outline: none; }
+
+@media (max-width: 24em) { .cake-wrap { gap: var(--space-m); } }

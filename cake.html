@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>The Birthday Cake · To My Favourite Human</title>
+  <meta name="theme-color" content="#FFF9F2">
+  <link rel="icon" href="assets/illustrations/hibiscus.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Hanken+Grotesk:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/pages.css">
+  <link rel="stylesheet" href="css/cake.css">
+</head>
+<body>
+  <main class="page cake-page" id="cake-page">
+    <div class="cake-wrap">
+
+      <header class="cake-head fade">
+        <p class="kicker">Page 07</p>
+        <h1 id="cake-title">One little wish before the candles go out.</h1>
+        <p class="cake-instruction" id="cake-instruction">Take a moment. Make a wish. Then let’s light up this little birthday moment.</p>
+      </header>
+
+      <div class="cake-stage fade" id="cake-stage" data-state="intro">
+        <div class="cake-glow" aria-hidden="true"></div>
+
+        <svg class="cake-svg" viewBox="0 0 320 320" role="img" aria-labelledby="cake-svg-title" focusable="false">
+          <title id="cake-svg-title">A two-tier cherry-red birthday cake with three lit candles</title>
+          <defs>
+            <radialGradient id="glow-grad" cx="50%" cy="50%" r="50%">
+              <stop offset="0" stop-color="#F6B56A" stop-opacity="0.55"/>
+              <stop offset="1" stop-color="#F6B56A" stop-opacity="0"/>
+            </radialGradient>
+            <linearGradient id="flame-grad" x1="0" y1="1" x2="0" y2="0">
+              <stop offset="0" stop-color="#E8873A"/>
+              <stop offset="0.55" stop-color="#F6B04E"/>
+              <stop offset="1" stop-color="#FBE3A4"/>
+            </linearGradient>
+          </defs>
+
+          <!-- plate -->
+          <ellipse cx="160" cy="292" rx="146" ry="15" fill="#F3EAE0" stroke="#541B27" stroke-opacity="0.35"/>
+          <ellipse cx="160" cy="288" rx="128" ry="10" fill="#FFF9F2" stroke="#541B27" stroke-opacity="0.2"/>
+
+          <!-- bottom tier -->
+          <rect x="38" y="196" width="244" height="92" rx="12" fill="#541B27"/>
+          <path d="M38 208 Q38 196 50 196 H270 Q282 196 282 208 V214 C272 214 270 232 258 232 C246 232 246 216 234 216 C222 216 222 238 208 238 C194 238 196 218 182 218 C168 218 168 234 154 234 C140 234 140 216 126 216 C112 216 112 236 98 236 C84 236 84 216 72 216 C60 216 58 232 46 232 C42 232 40 230 38 228 Z" fill="#FFF9F2"/>
+          <g fill="#C34450">
+            <circle cx="70" cy="262" r="4.5"/><circle cx="106" cy="268" r="4.5"/><circle cx="142" cy="262" r="4.5"/>
+            <circle cx="178" cy="268" r="4.5"/><circle cx="214" cy="262" r="4.5"/><circle cx="250" cy="268" r="4.5"/>
+          </g>
+
+          <!-- top tier -->
+          <rect x="82" y="134" width="156" height="68" rx="10" fill="#A52B3C"/>
+          <path d="M82 144 Q82 134 92 134 H228 Q238 134 238 144 V150 C230 150 228 166 218 166 C208 166 208 152 198 152 C188 152 188 172 176 172 C164 172 166 154 154 154 C142 154 142 170 130 170 C118 170 120 152 110 152 C100 152 98 166 90 166 C86 166 84 164 82 162 Z" fill="#FFF9F2"/>
+          <path d="M96 190 Q124 182 152 190 T208 190 T224 188" fill="none" stroke="#FFF9F2" stroke-opacity="0.55" stroke-width="2" stroke-linecap="round"/>
+
+          <!-- three candles -->
+          <g class="candle" data-i="0" transform="translate(118 0)">
+            <rect x="-5" y="92" width="10" height="44" rx="2" fill="#FFF9F2" stroke="#541B27" stroke-opacity="0.3"/>
+            <path d="M-5 104 L5 100 M-5 114 L5 110 M-5 124 L5 120" stroke="#C34450" stroke-width="2.5" fill="none"/>
+            <path d="M0 92 V86" stroke="#541B27" stroke-width="1.5" stroke-linecap="round"/>
+            <circle class="flame-halo" cx="0" cy="72" r="26" fill="url(#glow-grad)"/>
+            <g transform="translate(0 86)"><g class="flame"><path class="flame-outer" d="M0 -26 C8 -15 9 -6 0 3 C-9 -6 -8 -15 0 -26 Z" fill="url(#flame-grad)"/><path class="flame-inner" d="M0 -12 C3.5 -7 4 -3 0 1 C-4 -3 -3.5 -7 0 -12 Z" fill="#FFF3D1"/></g></g>
+            <g transform="translate(0 84)"><g class="smoke"><path d="M0 0 C-7 -10 7 -18 0 -30 C-6 -40 6 -48 0 -58" fill="none" stroke="#81736F" stroke-width="2" stroke-linecap="round"/></g></g>
+          </g>
+          <g class="candle" data-i="1" transform="translate(160 0)">
+            <rect x="-5" y="86" width="10" height="50" rx="2" fill="#FFF9F2" stroke="#541B27" stroke-opacity="0.3"/>
+            <path d="M-5 98 L5 94 M-5 108 L5 104 M-5 118 L5 114 M-5 128 L5 124" stroke="#A52B3C" stroke-width="2.5" fill="none"/>
+            <path d="M0 86 V80" stroke="#541B27" stroke-width="1.5" stroke-linecap="round"/>
+            <circle class="flame-halo" cx="0" cy="66" r="26" fill="url(#glow-grad)"/>
+            <g transform="translate(0 80)"><g class="flame"><path class="flame-outer" d="M0 -26 C8 -15 9 -6 0 3 C-9 -6 -8 -15 0 -26 Z" fill="url(#flame-grad)"/><path class="flame-inner" d="M0 -12 C3.5 -7 4 -3 0 1 C-4 -3 -3.5 -7 0 -12 Z" fill="#FFF3D1"/></g></g>
+            <g transform="translate(0 78)"><g class="smoke"><path d="M0 0 C-7 -10 7 -18 0 -30 C-6 -40 6 -48 0 -58" fill="none" stroke="#81736F" stroke-width="2" stroke-linecap="round"/></g></g>
+          </g>
+          <g class="candle" data-i="2" transform="translate(202 0)">
+            <rect x="-5" y="92" width="10" height="44" rx="2" fill="#FFF9F2" stroke="#541B27" stroke-opacity="0.3"/>
+            <path d="M-5 104 L5 100 M-5 114 L5 110 M-5 124 L5 120" stroke="#C34450" stroke-width="2.5" fill="none"/>
+            <path d="M0 92 V86" stroke="#541B27" stroke-width="1.5" stroke-linecap="round"/>
+            <circle class="flame-halo" cx="0" cy="72" r="26" fill="url(#glow-grad)"/>
+            <g transform="translate(0 86)"><g class="flame"><path class="flame-outer" d="M0 -26 C8 -15 9 -6 0 3 C-9 -6 -8 -15 0 -26 Z" fill="url(#flame-grad)"/><path class="flame-inner" d="M0 -12 C3.5 -7 4 -3 0 1 C-4 -3 -3.5 -7 0 -12 Z" fill="#FFF3D1"/></g></g>
+            <g transform="translate(0 84)"><g class="smoke"><path d="M0 0 C-7 -10 7 -18 0 -30 C-6 -40 6 -48 0 -58" fill="none" stroke="#81736F" stroke-width="2" stroke-linecap="round"/></g></g>
+          </g>
+        </svg>
+
+        <div class="cake-panel">
+          <!-- stage: intro -->
+          <div class="cake-step" data-step="intro">
+            <button type="button" class="btn" id="start-btn" hidden>Start the birthday moment</button>
+          </div>
+
+          <!-- stage: counting -->
+          <div class="cake-step" data-step="counting" hidden>
+            <p class="count-label" id="count-label">Make your wish. Keep it just for you.</p>
+            <p class="count-number" id="count-number" aria-hidden="true">10</p>
+            <button type="button" class="link-btn" id="skip-btn">Skip the countdown</button>
+          </div>
+
+          <!-- stage: ready -->
+          <div class="cake-step" data-step="ready" hidden>
+            <p class="ready-line">The candles are yours. Whenever you’re ready.</p>
+            <button type="button" class="btn" id="blow-btn">Tap to blow out the candles</button>
+            <div class="mic-block">
+              <button type="button" class="btn btn-ghost" id="mic-btn">Or blow into the microphone</button>
+              <button type="button" class="link-btn" id="mic-cancel" hidden>Cancel the microphone</button>
+              <p class="mic-status" id="mic-status" role="status" aria-live="polite"></p>
+              <p class="mic-note">Optional. Your browser asks for microphone permission only when you press this button. Nothing is recorded, saved or sent anywhere, and the microphone is switched off as soon as the candles go out. It needs HTTPS or localhost. If it isn’t available, tapping works exactly the same.</p>
+            </div>
+          </div>
+
+          <!-- stage: done -->
+          <div class="cake-step done" data-step="done" hidden>
+            <p class="done-line" id="done-line" tabindex="-1">Wish made. I hope this year brings you beautiful things.</p>
+            <a class="btn" id="song-link" href="song.html">There’s one more thing for you →</a>
+          </div>
+        </div>
+
+        <noscript>
+          <div class="cake-step done">
+            <p class="done-line">Wish made. I hope this year brings you beautiful things.</p>
+            <a class="btn" href="song.html">There’s one more thing for you →</a>
+          </div>
+        </noscript>
+      </div>
+
+      <p class="visually-hidden" id="cake-live" role="status" aria-live="polite"></p>
+
+      <nav class="pager fade" aria-label="Page navigation">
+        <a class="pager-back" href="fanclub.html">← Back to the fan club</a>
+        <p class="pager-count" aria-label="Page 7 of 8">7 / 8</p>
+      </nav>
+    </div>
+  </main>
+  <script src="js/main.js"></script>
+  <script src="js/cake.js"></script>
+</body>
+</html>

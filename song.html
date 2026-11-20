@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>A Song For You · To My Favourite Human</title>
+  <meta name="theme-color" content="#FFF9F2">
+  <link rel="icon" href="assets/illustrations/hibiscus.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Hanken+Grotesk:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/pages.css">
+  <link rel="stylesheet" href="css/song.css">
+</head>
+<body>
+  <main class="page song-page" id="song-page">
+    <div class="song-wrap">
+
+      <header class="song-head fade">
+        <p class="kicker">Page 08</p>
+        <h1>Some things are easier to feel through music.</h1>
+        <p class="song-sub">So here’s a little song for your day.</p>
+      </header>
+
+      <!-- THE SONG. Settings live in js/song-config.js -->
+      <section class="song-block fade" aria-labelledby="song-heading">
+        <h2 class="visually-hidden" id="song-heading">The song</h2>
+        <div class="song-frame" id="song-frame">
+          <div class="song-placeholder" id="song-placeholder">
+            <img src="assets/illustrations/hibiscus.svg" alt="" width="56" height="56">
+            <p>The song will appear here.</p>
+          </div>
+        </div>
+        <p class="song-title" id="song-title">Song title goes here</p>
+        <p class="song-fallback" id="song-fallback" hidden><a href="#" id="song-link" target="_blank" rel="noopener">Open the song on YouTube</a></p>
+      </section>
+
+      <!-- KEEPSAKES: two PDFs in assets/pdf/ (open in a new tab, or download) -->
+      <section class="keepsakes fade" aria-labelledby="keep-heading">
+        <h2 id="keep-heading">Two keepsakes</h2>
+        <p class="keep-intro">Made from photographs. Read them here, or keep a copy.</p>
+
+        <ul class="keep-list">
+          <li class="keep-item">
+            <h3>Marisha: The Sun Issue</h3>
+            <p class="keep-meta">A magazine · 35 pages · 19 MB</p>
+            <div class="keep-actions">
+              <a class="btn keep-open" href="assets/pdf/Marisha_The_Sun_Issue.pdf" target="_blank" rel="noopener" aria-label="Read the magazine, Marisha: The Sun Issue (opens in a new tab)">Read the magazine</a>
+              <a class="keep-download" href="assets/pdf/Marisha_The_Sun_Issue.pdf" download="Marisha_The_Sun_Issue.pdf" aria-label="Download the magazine as a PDF, 19 MB">Download PDF</a>
+            </div>
+          </li>
+          <li class="keep-item">
+            <h3>The Way I Remember You</h3>
+            <p class="keep-meta">A photo album · 86 pages · 74 MB</p>
+            <div class="keep-actions">
+              <a class="btn keep-open" href="assets/pdf/Cinematic_Photo_Album.pdf" target="_blank" rel="noopener" aria-label="Open the photo album, The Way I Remember You (opens in a new tab)">Open the album</a>
+              <a class="keep-download" href="assets/pdf/Cinematic_Photo_Album.pdf" download="Cinematic_Photo_Album.pdf" aria-label="Download the photo album as a PDF, 74 MB">Download PDF</a>
+            </div>
+          </li>
+        </ul>
+        <p class="keep-note">The album is a large file, so it opens best on Wi-Fi. On some phones, PDFs download instead of opening. They’re yours to keep either way.</p>
+      </section>
+
+      <!-- A WRITTEN MOMENT -->
+      <section class="words" aria-labelledby="words-heading">
+        <h2 id="words-heading">Things I Can’t Put Into Words</h2>
+        <div class="words-body">
+          <p>Some feelings are too big for words. And some people are too special to be described by a few sentences.</p>
+          <p>I could write a hundred letters and still leave so much unsaid. So maybe I’ll leave it at this: I’m genuinely glad our paths crossed.</p>
+          <p>You deserve all the beautiful things life has to offer. And no matter where life takes us, you’ll always be family.</p>
+        </div>
+      </section>
+
+      <!-- CLOSING -->
+      <section class="closing" id="closing" aria-label="Closing message">
+        <img class="closing-flower" src="assets/illustrations/hibiscus.svg" alt="" width="44" height="44">
+        <p class="closing-sign">Happy birthday, Marisha.</p>
+      </section>
+
+      <nav class="pager" aria-label="Page navigation">
+        <a class="pager-back" href="cake.html">← Back to the cake</a>
+        <p class="pager-count" aria-label="Page 8 of 8">8 / 8</p>
+      </nav>
+    </div>
+  </main>
+  <script src="js/main.js"></script>
+  <script src="js/song-config.js"></script>
+  <script src="js/song.js"></script>
+</body>
+</html>
