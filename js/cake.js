@@ -91,12 +91,17 @@
   }
 
   /* ---------- Microphone (optional) ---------- */
+  // Lets the background music pause while the microphone listens (music would be picked up as noise).
+  function micEvent(on) {
+    try { window.dispatchEvent(new CustomEvent('marisha:mic', { detail: { listening: on } })); } catch (e) {}
+  }
   function micMessage(text) { micStatus.textContent = text; }
 
   function stopMic() {
     var m = mic;
     mic = null;
     if (!m) return;
+    if (m.listening) micEvent(false);
     m.stopped = true;
     clearInterval(m.timer);
     clearTimeout(m.timeout);
@@ -141,6 +146,8 @@
         if (ctx.state === 'suspended') ctx.resume();
         var buf = new Float32Array(analyser.fftSize);
 
+        session.listening = true;
+        micEvent(true);
         micBtn.hidden = true;
         micCancel.hidden = false;
         micCancel.focus();

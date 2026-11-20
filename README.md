@@ -28,6 +28,7 @@ to-my-favourite-human/
 │   ├── style.css                   Design tokens, base styles, shared button
 │   ├── pages.css                   Page-specific styles
 │   ├── cake.css                    Cake page styles
+│   ├── music.css                   Floating music control
 │   └── song.css                    Song page styles
 ├── js/
 │   ├── main.js                     Shared behaviour
@@ -35,10 +36,11 @@ to-my-favourite-human/
 │   ├── fanclub.js                  Fan club "apply" reveal
 │   ├── cake.js                     Countdown, tap to blow, optional microphone
 │   ├── song-config.js              YOUR SETTINGS for the song (edit this one)
-│   └── song.js                     YouTube embed (no need to edit)
+│   ├── song.js                     YouTube embed on the Song page (no need to edit)
+│   └── music.js                    Website-wide background music + floating control (no need to edit)
 ├── assets/
 │   ├── pdf/
-│   │   ├── Marisha_The_Sun_Issue.pdf   Magazine (35 pages, about 19 MB)
+│   │   ├── Marisha_The_Sun_Issue.pdf   Magazine, The Hibiscus Issue (35 pages, about 20 MB)
 │   │   └── Cinematic_Photo_Album.pdf   Photo album (86 pages, about 74 MB)
 │   ├── illustrations/
 │   │   └── hibiscus.svg            Recurring line-art hibiscus (also the favicon)
@@ -55,29 +57,31 @@ to-my-favourite-human/
 - Cake page microphone option: optional, started only by a button click. Audio is analysed in memory and never recorded, stored or sent. It needs HTTPS or localhost (GitHub Pages is HTTPS). Tap to blow always works without it.
 - Deploying: push the folder contents to a GitHub repository and enable GitHub Pages for the main branch.
 
-## Adding the song (YouTube)  — the only thing left to fill in
+## The song (YouTube)
 
-Edit **one file**: `js/song-config.js`. It currently holds a clearly marked placeholder:
+The song is already set in `js/song-config.js` (`youtubeVideoId: "Shz9iLeE6i4"`, from `https://www.youtube.com/watch?v=Shz9iLeE6i4`). To change it, replace that value with a full link, a `youtu.be` link or the 11-character ID (keep the quotation marks and comma). `songTitle` is optional: type a title to show it under the player, or leave `""` to show none.
 
-```js
-youtubeVideoId: "",                      // <-- PLACEHOLDER: paste the YouTube link or ID here
-songTitle: "Song title goes here"        // <-- PLACEHOLDER: replace with the real song title
-```
-
-Change it to, for example:
-
-```js
-youtubeVideoId: "https://www.youtube.com/watch?v=AbCdEfGhIjK",
-songTitle: "The real song title"
-```
-
-A full link, a `youtu.be` share link, or just the 11-character ID (`AbCdEfGhIjK`) all work. Keep the quotation marks and the comma after the first value.
-
-While `youtubeVideoId` is empty (or isn't valid), the page shows a calm framed placeholder, hides the title line, and makes no request to YouTube. The video never autoplays, uses youtube-nocookie.com, resizes to the screen width (16:9), and an "Open the song on YouTube" link appears under it.
+The video never autoplays, uses youtube-nocookie.com, resizes to the screen width (16:9), and an "Open the song on YouTube" link appears under it. If the ID is emptied or invalid, the page shows a calm placeholder instead and the music control is hidden.
 
 Notes:
-- The video must allow embedding. If YouTube shows an "unavailable" message in the player, choose another upload of the song; the link under the player still works.
-- YouTube embeds don't work when a page is opened as a file (`file://`). Use `python3 -m http.server 8000` locally, or GitHub Pages.
+- The video must allow embedding. If YouTube shows an "unavailable" message in the player, choose another upload; the link under the player still works.
+- YouTube embeds do not work when a page is opened as a file (`file://`). Use `python3 -m http.server 8000` locally, or GitHub Pages.
+- Only the video ID is used from the link you were given; the playlist/radio part (`list=...`) is ignored.
+
+## Background music (the same YouTube song, on every page)
+
+The song set in `js/song-config.js` is also the website's background music. Nothing extra to configure: the one link in `js/song-config.js` drives both the Song page player and the music control use it.
+
+- A small floating control (bottom right) has **Play/Pause** and **Mute/Unmute**. Default volume is 25%.
+- Music starts only after the visitor's **first tap or click** on any page (browsers forbid sound before that). If she pauses it, it stays paused on every page until she presses Play.
+- Optional settings in `js/song-config.js`: `musicVolume` (0 to 100, default 25) and `startMusicOnFirstTap` (`false` = start only when she presses Play on the control).
+- If `youtubeVideoId` is empty or invalid, or YouTube cannot be loaded, the control is not shown and nothing is requested.
+- On the Song page the visible embedded player is the one player (no second copy), and the control controls it.
+- The cake page's microphone option pauses the music while it listens (so the music isn't mistaken for a blow), then resumes it.
+
+**Honest limitation: navigation is not seamless.** This is a plain multi-page site, so every link loads a new page and the browser destroys the player. The controller saves the position (per browser tab) and starts a fresh player on the next page, which gives a gap of roughly 1 to 3 seconds and a restart a couple of seconds after the saved position. Whether the resume starts by itself depends on the browser's autoplay rules; if it is blocked, the control shows Play and her next tap resumes it. Truly gapless music would need the whole site rebuilt as a single-page app (page content swapped in place); that was deliberately not done, to avoid risking the finished pages.
+
+**YouTube policy note.** On pages other than the Song page the player is a 1-pixel, non-interactive embedded player (audio plays, video is not seen). YouTube's embedded-player policies expect players to be visible, so this is a grey area; it is the usual way to do background music but is your call. The music is streamed from YouTube; no audio is downloaded or stored.
 
 ## The magazine and photo album (PDFs)
 
@@ -85,7 +89,7 @@ Both live in `assets/pdf/` and are linked from page 08 ("Two keepsakes"):
 
 | File | What it is | Size |
 |---|---|---|
-| `assets/pdf/Marisha_The_Sun_Issue.pdf` | The magazine, 35 pages | 19.5 MB |
+| `assets/pdf/Marisha_The_Sun_Issue.pdf` | The magazine (The Hibiscus Issue), 35 pages | 19.7 MB |
 | `assets/pdf/Cinematic_Photo_Album.pdf` | The photo album, 86 pages | 74.2 MB |
 
 They are the original files, byte for byte (not compressed or re-exported). Each has a **Read/Open** button (opens in a new tab) and a **Download PDF** link. Filenames are case-sensitive on GitHub Pages: keep them exactly as above. To replace a PDF, overwrite the file keeping the same name.

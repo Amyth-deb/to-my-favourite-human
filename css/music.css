@@ -1,0 +1,33 @@
+/* Floating background-music control (js/music.js). Uses tokens from style.css. */
+.bgm {
+  position: fixed; z-index: 50;
+  right: max(0.75rem, env(safe-area-inset-right));
+  bottom: max(0.75rem, env(safe-area-inset-bottom));
+  display: flex; align-items: center;
+  padding: 0.25rem;
+  background: rgba(255, 249, 242, 0.94);
+  border: 1px solid rgba(84, 27, 39, 0.3);
+  border-radius: 999px;
+  box-shadow: 0 2px 12px rgba(84, 27, 39, 0.12);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+}
+.bgm-btn {
+  width: 2.75rem; height: 2.75rem; padding: 0; border: 0; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  color: var(--burgundy); background: transparent; cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color 0.3s var(--ease), color 0.3s var(--ease);
+}
+.bgm-btn:hover { background: var(--cream); color: var(--cherry); }
+.bgm-btn svg { width: 1.25rem; height: 1.25rem; }
+.bgm-btn .i-alt { display: none; }
+.bgm-play[data-state="playing"] .i-main, .bgm-mute[data-state="muted"] .i-main { display: none; }
+.bgm-play[data-state="playing"] .i-alt, .bgm-mute[data-state="muted"] .i-alt { display: block; }
+.bgm-mute[data-state="muted"] { color: var(--cherry); }
+.bgm-sep { width: 1px; height: 1.25rem; background: rgba(84, 27, 39, 0.25); }
+
+/* The audio-only player for pages without the song embed. Present in the page, 1 px, not interactive. */
+.bgm-host { position: fixed; right: 0; bottom: 0; width: 1px; height: 1px; overflow: hidden; opacity: 0; pointer-events: none; }
+
+/* Keep the last lines of a page clear of the control. Does not make short pages scroll. */
+.has-music .page { padding-bottom: calc(var(--space-xl) + 1.5rem); }

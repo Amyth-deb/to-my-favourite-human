@@ -1,10 +1,27 @@
 # Project Status
 
-**Stage:** Command 08, Final personal touch & launch preparation
+**Stage:** Command 10, Magazine replaced and song set (on top of Commands 08 and 09)
 **Date:** 20 November 2026
-**State:** Ready to publish once the YouTube link is added (see "Remaining manual steps").
+**State:** Ready to publish. Test on real devices first (see "Remaining manual steps").
 
 Only results that were actually executed are listed here.
+
+## Command 10: magazine replaced, song set
+- `assets/pdf/Marisha_The_Sun_Issue.pdf` is now the new magazine ("MARISHA — The Hibiscus Issue", 35 pages, 19,684,544 bytes). Same filename, so all links work; the old file was overwritten, not kept. No other copy of the old magazine is in the project.
+- `song.html`: the magazine card now reads "Marisha: The Hibiscus Issue · 35 pages · 20 MB" (and the matching accessible labels). Open/Read and Download links are unchanged. The Download link still saves the file as `Marisha_The_Sun_Issue.pdf` (the filename you asked to keep), although the magazine is titled "Hibiscus Issue".
+- `Cinematic_Photo_Album.pdf`: untouched (byte-identical).
+- `js/song-config.js`: `youtubeVideoId` set to `Shz9iLeE6i4` (from your link; the `list=RD...` radio part is ignored). `songTitle` is now `""` (I don't know the song's title; add it if you want it shown).
+- `js/song.js`: small supporting change: an empty song title now hides the title line (previously a blank title would have shown the words "Song title goes here" under the real video).
+- `README.md`: song and magazine sections updated. All other pages, styles and scripts unchanged.
+
+### Tests (Chromium, local server)
+- New-magazine checks (14): served file is byte-identical to the new upload and differs from the old one; opens as a new tab link with `noopener`; Download saves a file with the right name and identical bytes; card text correct; album identical and still downloads; real config builds an iframe for `Shz9iLeE6i4` with no autoplay or playlist parameter, correct fallback link, no placeholder text; no JavaScript errors. 13 passed; the one failure was my own test being case-sensitive about text the CSS shows in capitals, and the page text is correct.
+- Regression with song placeholder state: 182 of 182 passed. Background-music suite (fake YouTube API): 200 of 200 passed.
+- Still not tested: real YouTube playback of this video (sandbox offline), real-browser PDF viewing, real phones.
+
+## Content notes
+- The new magazine drops the earlier "she's mine" and "I love you" wording (now "1 sister, one of a kind" and "your biggest fan"). It still says "the sun of my life" in the editor's letter and "My sister. My HG."; the site elsewhere says friend and family. Your call.
+- Magazine page 18 still has no caption.
 
 ## Flow
 `index.html` → `apology.html` → `birthday.html` → `story.html` → `letter.html` → `fanclub.html` → `cake.html` → `song.html` (page 08 of 8, the last page)
@@ -50,6 +67,39 @@ Before this stage no page referenced either PDF and the ZIP did not contain them
 The magazine PDF is warmer and more personal than the website’s careful tone: "My sister. My HG.", "The sun of my life.", "1 sun — and she’s mine", "I love you, Marisha." The site elsewhere says friend and family, and the new written moment says you’re glad your paths crossed. "She’s mine" and "sun of my life" could be read as romantic or possessive. I did not alter or recreate the PDF as instructed. Consider whether the magazine matches how you want this gift to be read, and if not, regenerate it and overwrite `assets/pdf/Marisha_The_Sun_Issue.pdf`. Also minor: magazine page 18 has no caption, and the page number on page 22 is partly cut off.
 
 ## Remaining manual steps
-1. **Add the YouTube link** in `js/song-config.js` (replace both PLACEHOLDER lines).
+1. (Done) YouTube song set in `js/song-config.js`; it drives both the Song page player and the website-wide music. Optionally add `songTitle`.
 2. Push the project with Git or GitHub Desktop (not the website uploader) and enable GitHub Pages (README, "Deploying on GitHub Pages").
 3. On the live site, on a phone and a computer: play the song, open and download both PDFs, run the cake flow once including the microphone option.
+
+## Command 09: background music
+| File | Change |
+|---|---|
+| `js/music.js` | New. Shared controller loaded on all 8 pages: loads the YouTube IFrame API only after the first tap/click, one player per page, saves state (playing/paused, muted, position) in `sessionStorage`, resumes on the next page, loops, handles errors. |
+| `css/music.css` | New. Floating pill control (ivory, burgundy, cherry; 44 px buttons; safe-area aware) and the 1 px player host. |
+| All 8 `.html` pages | Added the `music.css` link and the `song-config.js` + `music.js` scripts. Nothing else changed (no text, order, PDFs or illustrations). |
+| `js/song.js` | The Song page embed now has `enablejsapi=1` (plus `origin` over http/https) and `allow="autoplay; ..."` so the controller can drive that same player. Still no autoplay parameter. The embed is no longer `loading="lazy"` so the controller can attach. |
+| `js/cake.js` | Two tiny additions: emits a `marisha:mic` event when the microphone starts/stops listening so the music pauses meanwhile. Countdown, skip, tap-to-blow and mic logic unchanged. |
+| `js/song-config.js` | Added `musicVolume` (25) and `startMusicOnFirstTap` (true). Video ID and title lines unchanged (still PLACEHOLDER). |
+| `README.md` | New "Background music" section. |
+
+### Architecture decision
+A shared player that survives navigation is impossible on a plain multi-page site (each page load destroys the iframe). Chosen: **resume-per-page** (non-destructive, small). Rejected for now: turning the site into a single-page app (gapless, but re-initialises the cake/mic/gift/fan-club scripts on every move and risks regressions). Expect a gap of about 1 to 3 seconds when changing page.
+
+### Tests executed (Chromium via Playwright, local server, **fake YouTube IFrame API**): 200 of 200 passed; earlier regression suite 182 of 182 passed
+- **No/invalid config** (all 8 pages): no control, no errors, zero requests to YouTube.
+- **Valid config, all 8 pages, at 320, 390 and 1440 px:** control visible and inside the viewport, buttons at least 44 px, no horizontal overflow, no errors; before any tap there is no player, no API request and no play call.
+- **First tap anywhere** starts playback with exactly one player; volume 25; a second tap creates nothing; mute/unmute; pause; after an explicit pause, tapping the page does not restart it; Play resumes.
+- **Navigation through real links** apology to birthday, story, letter, fan club, cake, song: control present each time, music resumed, one iframe, resumed near the saved position (not from 0), mute and volume carried over.
+- **Autoplay blocked on the next page (simulated):** control honestly shows Play; the next tap resumes. Reload resumes.
+- **Cake:** microphone listening pauses the music; cancelling, or blowing out by tap, resumes it.
+- **Song page:** the existing embed is the only player (reused, not duplicated); pausing inside the embed updates the control and is respected; end of video loops; placeholder and fallback link still work.
+- **YouTube API blocked:** control removed, page intact. `startMusicOnFirstTap:false` and `musicVolume:40` honoured. Keyboard (Enter/Space) and reduced motion work.
+
+### Limitations (new)
+- **No real YouTube playback was tested** (sandbox is offline; a fake API replaced YouTube). Real autoplay rules, real audio, the 1 px hidden player's behaviour, and whether the resume succeeds without a tap on iOS Safari, Firefox and Chrome are untested. Test on real phones once the song ID is added.
+- Navigation has an audible gap; position resumes approximately (saved once a second, plus up to 3 s of gap compensation).
+- State is kept per browser tab (`sessionStorage`). A new tab or a closed-and-reopened tab starts fresh, needing a new first tap.
+- Changing volume inside the Song page's embed is not remembered on other pages (they use `musicVolume`).
+- Embedding can be blocked by the video owner; the control is then removed.
+- The hidden 1 px player on non-Song pages is a grey area in YouTube's embedded-player policy (see README).
+- The song itself is still the placeholder until you add the link.

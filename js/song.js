@@ -10,7 +10,8 @@
   var fallback = document.getElementById('song-fallback');
   var linkEl = document.getElementById('song-link');
 
-  var title = typeof cfg.songTitle === 'string' && cfg.songTitle.trim() ? cfg.songTitle.trim() : 'Song title goes here';
+  var title = typeof cfg.songTitle === 'string' ? cfg.songTitle.trim() : '';
+  if (title === 'Song title goes here') title = '';   // old placeholder: never show it
   if (titleEl) titleEl.textContent = title;
 
   // Accepts a bare 11-character ID, or a pasted YouTube link.
@@ -25,7 +26,7 @@
 
   var id = parseVideoId(cfg.youtubeVideoId);
   // Without a real video, don't show a placeholder title to the recipient.
-  if (titleEl && !id) titleEl.hidden = true;
+  if (titleEl && (!id || !title)) titleEl.hidden = true;
   if (cfg.youtubeVideoId && !id && window.console) {
     console.warn('song-config.js: youtubeVideoId is not a valid YouTube ID or link. Showing the placeholder.');
   }
@@ -37,10 +38,13 @@
   if (frame && id) {
     var iframe = document.createElement('iframe');
     // No autoplay parameter: the song only plays when she presses play.
-    iframe.src = 'https://www.youtube-nocookie.com/embed/' + id + '?rel=0&playsinline=1';
-    iframe.title = 'Song: ' + title;
-    iframe.loading = 'lazy';
-    iframe.allow = 'encrypted-media; picture-in-picture; fullscreen';
+    // enablejsapi lets the shared music controller (js/music.js) control this same player.
+    var src = 'https://www.youtube-nocookie.com/embed/' + id + '?rel=0&playsinline=1&enablejsapi=1';
+    if (/^https?:$/.test(location.protocol)) src += '&origin=' + encodeURIComponent(location.origin);
+    iframe.src = src;
+    iframe.title = title ? 'Song: ' + title : 'The song';
+        // 'autoplay' only delegates permission; nothing here asks the video to start.
+    iframe.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
     iframe.allowFullscreen = true;
     iframe.referrerPolicy = 'strict-origin-when-cross-origin';
     frame.textContent = '';
